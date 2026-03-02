@@ -1,3 +1,254 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+/* ---------------------------------------------------------
+   CHARMING LANDING PAGE
+   Centered, simplified, and starry.
+--------------------------------------------------------- */
+
+// 1. Full-screen starry background for index page
+body[data-slug="index"] {
+  height: 100vh;
+  color: #f8fafc;
+  background-color: #020617;
+  overflow: hidden;
+}
+
+body[data-slug="index"]::before,
+body[data-slug="index"]::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body[data-slug="index"]::before {
+  background:
+    /* stars layer 1 (tiny) */
+    radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 150px 40px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 60px 120px, rgba(255,255,255,0.6), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 280px 190px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+    /* stars layer 2 (medium) */
+    radial-gradient(1.5px 1.5px at 100px 150px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+    radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+  background-size: 400px 400px, 400px 400px, 400px 400px, 400px 400px, 400px 400px, 100% 100%;
+  animation: slow-drift 120s linear infinite;
+}
+
+body[data-slug="index"]::after {
+  background: 
+    radial-gradient(1.5px 1.5px at 100px 200px, #fff, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 600px 300px, #fff, rgba(0,0,0,0));
+  background-size: 800px 600px;
+  animation: slow-twinkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes slow-drift {
+  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 400px 0, 400px 0, 400px 0, 400px 0, 400px 0, 0 0; }
+}
+
+@keyframes slow-twinkle {
+  0% { opacity: 0.2; }
+  100% { opacity: 0.6; }
+}
+
+// 2. Centered block with left-aligned content for the index page
+body[data-slug="index"] .center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; 
+  height: 100%; 
+  padding: 1rem 0;
+}
+
+body[data-slug="index"] article {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 650px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 0 auto;
+  
+  & > * {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .avatar {
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// 3. Simplified Avatar
+.avatar {
+  width: 150px; 
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+// 4. Typography Adjustments
+
+// Make the native ArticleTitle look like our fun headers
+h1.article-title {
+  font-size: 2.2rem;
+  margin-top: 2rem; 
+  margin-bottom: 0;
+  color: var(--dark); 
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+// Style metadata to be elegant below the ArticleTitle
+.content-meta {
+  margin-top: 0.5rem; 
+  margin-bottom: 2rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-weight: 400;
+  display: block;
+}
+
+// Hide metadata for category hubs AND consolidated department files
+body[data-slug="research"],
+body[data-slug="classes"],
+body[data-slug="life"],
+body[data-slug="junkyard"],
+body[data-slug="classes/CS"],
+body[data-slug="classes/Math"],
+body[data-slug="classes/EE-EECS"],
+body[data-slug="classes/Misc"],
+body[data-slug$="/index"],
+body[data-slug$="/"] {
+  .content-meta {
+    display: block !important;
+  }
+}
+
+body[data-slug="index"] {
+  .article-title {
+    display: block !important;
+    font-size: 2.5rem; // Slightly larger for the main greeting
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #fdfcfb !important; // Ivory
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  h1:not(.article-title) {
+    display: block !important;
+  }
+
+  h2 {
+    font-size: 0.85rem;
+    color: #94a3b8; 
+    text-transform: uppercase;
+    letter-spacing: 0.2em; 
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    border: none;
+    padding: 0;
+  }
+
+  p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #d1d5db; 
+    margin-bottom: 0.75rem;
+    font-weight: 300; 
+  }
+
+  hr {
+    display: none; 
+  }
+
+  a {
+    color: #fbbf24; 
+    background: transparent;
+    padding: 0;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #fcd34d;
+      background: transparent;
+      text-decoration: underline;
+    }
+
+    &.internal {
+      background-color: transparent;
+      padding: 0;
+      font-weight: 600;
+      color: #fbbf24;
+
+      &:hover {
+        background-color: transparent;
+        color: #fcd34d;
+      }
+    }
+
+    .external-icon {
+      display: block !important;
+    }
+  }
+}
+
+// 5. Re-integrate Quartz Footer nicely
+body[data-slug="index"] footer {
+  margin-top: auto;
+  padding: 0.5rem;
+  opacity: 0.6;
+  text-align: center;
+
+  p, a {
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+
+  ul {
+    justify-content: center;
+    margin-top: 0;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   SUBTLE JUNKYARD BACKGROUND (GLOBAL)
+   A light, textured background that looks like worn paper
+   or a faded blueprint, suitable for serious reading.
+--------------------------------------------------------- */
+
+body:not([data-slug="index"]) {
+  /* Soft, warm paper color */
+  background-color: var(--light);
+  
+  /* Subtle "worn" texture and grid */
+  background-image: 
+    /* Very faint, rusty speckles/noise */
+    radial-gradient(rgba(184, 169, 154, 0.1) 1px, transparent 1px),
+    /* Faint vertical blueprint lines */
+    linear-gradient(90deg, rgba(140, 64, 29, 0.015) 1px, transparent 1px),
+    /* Faint horizontal blueprint lines */
+    linear-gradient(rgba(140, 64, 29, 0.015) 1px, transparent 1px);
+  
+  background-size: 
+    8px 8px, /* Speckle density */
+    60px 60px, /* Vertical grid spacing */
+    60px 60px; /* Horizontal grid spacing */
+  
+  /* Fixed so it doesn't scroll awkwardly with the text */
+  background-attachment: fixed;
+}
+

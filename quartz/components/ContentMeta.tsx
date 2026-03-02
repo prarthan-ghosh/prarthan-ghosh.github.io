@@ -27,6 +27,12 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
     const text = fileData.text
 
     if (text) {
+      // Hide metadata for folder hubs/index pages
+      const isIndex = fileData.slug === "index" || fileData.fileData?.name === "index"
+      if (isIndex) {
+        return null
+      }
+
       const segments: (string | JSX.Element)[] = []
 
       if (fileData.dates) {
