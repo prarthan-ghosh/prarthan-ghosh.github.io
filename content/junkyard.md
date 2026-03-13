@@ -1,6 +1,6 @@
 ---
-title: "Explore the Junkyard"
-funHeader: "Explore the Junkyard"
+title: "Welcome"
+funHeader: "Welcome to the Junkyard!"
 ---
 
 Welcome to my collection of things! This is where I dump my half-formed thoughts.

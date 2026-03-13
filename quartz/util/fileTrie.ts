@@ -71,7 +71,12 @@ export class FileTrieNode<T extends FileTrieData = ContentDetails> {
       if (segment === "index") {
         this.data ??= file
       } else {
-        this.makeChild(path, file)
+        const child = this.children.find((c) => c.slugSegment === segment)
+        if (child) {
+          child.data ??= file
+        } else {
+          this.makeChild(path, file)
+        }
       }
     } else if (path.length > 1) {
       // recursive case, we are not at the end of the path

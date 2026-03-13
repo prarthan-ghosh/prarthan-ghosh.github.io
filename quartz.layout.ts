@@ -16,13 +16,23 @@ export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
       component: Component.Breadcrumbs(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: (page) =>
+        page.fileData.slug !== "index" &&
+        page.fileData.slug !== "about" &&
+        page.fileData.slug !== "projects",
     }),
     Component.ArticleTitle(),
-    Component.TagList(),
+    Component.ConditionalRender({
+      component: Component.TagList(),
+      condition: (page) =>
+        page.fileData.slug !== "about" && page.fileData.slug !== "projects",
+    }),
     Component.ConditionalRender({
       component: Component.ContentMeta(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: (page) =>
+        page.fileData.slug !== "index" &&
+        page.fileData.slug !== "about" &&
+        page.fileData.slug !== "projects",
     }),
   ],
   left: [
@@ -32,7 +42,10 @@ export const defaultContentPageLayout: PageLayout = {
     }),
     Component.ConditionalRender({
       component: Component.MobileOnly(Component.Spacer()),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: (page) =>
+        page.fileData.slug !== "index" &&
+        page.fileData.slug !== "about" &&
+        page.fileData.slug !== "projects",
     }),
     Component.ConditionalRender({
       component: Component.Flex({
@@ -45,21 +58,38 @@ export const defaultContentPageLayout: PageLayout = {
           { Component: Component.ReaderMode() },
         ],
       }),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: (page) =>
+        page.fileData.slug !== "index" &&
+        page.fileData.slug !== "about" &&
+        page.fileData.slug !== "projects",
     }),
     Component.ConditionalRender({
-      component: Component.Explorer(),
-      condition: (page) => page.fileData.slug !== "index",
+      component: Component.Explorer({
+        filterFn: (node) =>
+          node.slugSegment !== "tags" &&
+          node.slugSegment !== "about" &&
+          node.slugSegment !== "projects",
+      }),
+      condition: (page) =>
+        page.fileData.slug !== "index" &&
+        page.fileData.slug !== "about" &&
+        page.fileData.slug !== "projects",
     }),
   ],
   right: [
     Component.ConditionalRender({
       component: Component.Graph(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: (page) =>
+        page.fileData.slug !== "index" &&
+        page.fileData.slug !== "about" &&
+        page.fileData.slug !== "projects",
     }),
     Component.ConditionalRender({
       component: Component.DesktopOnly(Component.TableOfContents()),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: (page) =>
+        page.fileData.slug !== "index" &&
+        page.fileData.slug !== "about" &&
+        page.fileData.slug !== "projects",
     }),
   ],
 }
@@ -68,7 +98,10 @@ export const defaultContentPageLayout: PageLayout = {
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
-    Component.PageTitle(),
+    Component.ConditionalRender({
+      component: Component.PageTitle(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
@@ -79,7 +112,12 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      filterFn: (node) =>
+        node.slugSegment !== "tags" &&
+        node.slugSegment !== "about" &&
+        node.slugSegment !== "projects",
+    }),
   ],
   right: [],
 }

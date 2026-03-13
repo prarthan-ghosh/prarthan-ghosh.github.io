@@ -1,20 +1,158 @@
 @use "./base.scss";
 
 /* ---------------------------------------------------------
-   CHARMING LANDING PAGE
+   CHARMING LANDING PAGE & MODERN SECTIONS
    Centered, simplified, and starry.
 --------------------------------------------------------- */
 
-// 1. Full-screen starry background for index page
-body[data-slug="index"] {
-  height: 100vh;
+// 1. Full-screen starry background for modern pages (Index, About, Projects)
+body[data-slug="index"],
+body[data-slug="about"],
+body[data-slug="projects"] {
   color: #f8fafc;
   background-color: #020617;
+
+  // Brighten the main ArticleTitle (the funHeader text)
+  .article-title {
+    color: #ffffff !important;
+    opacity: 1 !important;
+  }
+}
+
+body[data-slug="index"] {
+  height: 100vh;
   overflow: hidden;
+
+  .article-title {
+    display: block !important;
+    font-size: 2.5rem; 
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+}
+
+body[data-slug="about"],
+body[data-slug="projects"] {
+  overflow-y: auto;
+  
+  // Make the content container readable with glassmorphism
+  article {
+    background: rgba(15, 23, 42, 0.6); // Deep blue tinted transparent
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 3rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+
+    h1, h2, h3, h4, p, li {
+      color: #ffffff !important; // Forced bright white for content
+      opacity: 1 !important;
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-top: 2.5rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    a {
+      color: #fbbf24 !important;
+      &:hover {
+        color: #fcd34d !important;
+      }
+    }
+
+    // Social links styling
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        color: #94a3b8 !important;
+        text-decoration: none !important;
+        transition: all 0.2s ease;
+
+        svg {
+          stroke: #94a3b8;
+          transition: stroke 0.2s ease;
+        }
+
+        &:hover {
+          color: #f8fafc !important;
+          svg {
+            stroke: #f8fafc;
+          }
+        }
+      }
+    }
+  }
+
+  // Position the "Home" title nicely above the glass card
+  .page-title-container {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    
+    .page-title a {
+      color: #94a3b8 !important;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      transition: color 0.2s ease;
+      
+      &::before {
+        content: "← ";
+        opacity: 0.5;
+      }
+
+      &:hover {
+        color: #f8fafc !important;
+      }
+    }
+
+    .page-nav {
+      margin-left: 1.25rem;
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+
+      a {
+        color: #64748b !important;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 500;
+        text-decoration: none !important;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #f8fafc !important;
+        }
+      }
+    }
+  }
 }
 
 body[data-slug="index"]::before,
-body[data-slug="index"]::after {
+body[data-slug="index"]::after,
+body[data-slug="about"]::before,
+body[data-slug="about"]::after,
+body[data-slug="projects"]::before,
+body[data-slug="projects"]::after {
   content: "";
   position: fixed;
   top: 0;
@@ -25,36 +163,40 @@ body[data-slug="index"]::after {
   pointer-events: none;
 }
 
-body[data-slug="index"]::before {
+body[data-slug="index"]::before,
+body[data-slug="about"]::before,
+body[data-slug="projects"]::before {
   background:
-    /* stars layer 1 (tiny) */
-    radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 150px 40px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 60px 120px, rgba(255,255,255,0.6), rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 280px 190px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
-    /* stars layer 2 (medium) */
-    radial-gradient(1.5px 1.5px at 100px 150px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+    /* stars layer 1 (larger) */
+    radial-gradient(1.5px 1.5px at 20px 30px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 150px 40px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 60px 120px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 280px 190px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+    /* stars layer 2 (extra large) */
+    radial-gradient(2px 2px at 100px 150px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
     radial-gradient(circle at center, #0f172a 0%, #020617 100%);
   background-size: 400px 400px, 400px 400px, 400px 400px, 400px 400px, 400px 400px, 100% 100%;
-  animation: slow-drift 120s linear infinite;
+  animation: slow-drift 45s linear infinite; // Even faster
 }
 
-body[data-slug="index"]::after {
+body[data-slug="index"]::after,
+body[data-slug="about"]::after,
+body[data-slug="projects"]::after {
   background: 
-    radial-gradient(1.5px 1.5px at 100px 200px, #fff, rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 600px 300px, #fff, rgba(0,0,0,0));
+    radial-gradient(2.5px 2.5px at 100px 200px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2.5px 2.5px at 600px 300px, #fff, rgba(0,0,0,0));
   background-size: 800px 600px;
-  animation: slow-twinkle 6s ease-in-out infinite alternate;
+  animation: slow-twinkle 4s ease-in-out infinite alternate;
 }
 
 @keyframes slow-drift {
-  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
-  to { background-position: 400px 0, 400px 0, 400px 0, 400px 0, 400px 0, 0 0; }
+  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 400px 400px, 400px 400px, 400px 400px, 400px 400px, 400px 400px, 400px 400px, 0 0; }
 }
 
 @keyframes slow-twinkle {
-  0% { opacity: 0.2; }
-  100% { opacity: 0.6; }
+  0% { opacity: 0.3; }
+  100% { opacity: 0.8; }
 }
 
 // 2. Centered block with left-aligned content for the index page
@@ -127,6 +269,8 @@ body[data-slug="research"],
 body[data-slug="classes"],
 body[data-slug="life"],
 body[data-slug="junkyard"],
+body[data-slug="about"],
+body[data-slug="projects"],
 body[data-slug="classes/CS"],
 body[data-slug="classes/Math"],
 body[data-slug="classes/EE-EECS"],
@@ -139,15 +283,6 @@ body[data-slug$="/"] {
 }
 
 body[data-slug="index"] {
-  .article-title {
-    display: block !important;
-    font-size: 2.5rem; // Slightly larger for the main greeting
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    color: #fdfcfb !important; // Ivory
-    font-weight: 800;
-    letter-spacing: -0.02em;
-  }
   h1:not(.article-title) {
     display: block !important;
   }
@@ -200,7 +335,18 @@ body[data-slug="index"] {
     }
 
     .external-icon {
-      display: block !important;
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      position: absolute !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    svg {
+      display: none !important;
     }
   }
 }
@@ -230,7 +376,7 @@ body[data-slug="index"] footer {
    or a faded blueprint, suitable for serious reading.
 --------------------------------------------------------- */
 
-body:not([data-slug="index"]) {
+body:not([data-slug="index"]):not([data-slug="about"]):not([data-slug="projects"]) {
   /* Soft, warm paper color */
   background-color: var(--light);
   
@@ -252,3 +398,53 @@ body:not([data-slug="index"]) {
   background-attachment: fixed;
 }
 
+// Consistent Home link for Junkyard (Classic theme)
+body:not([data-slug="index"]):not([data-slug="about"]):not([data-slug="projects"]) {
+  .page-title-container {
+    margin-bottom: 1.5rem;
+
+    .page-title a {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      font-weight: 600;
+      text-decoration: none;
+      &::before {
+        content: "← ";
+      }
+      &:hover {
+        color: var(--secondary);
+      }
+    }
+
+    .page-nav {
+      margin-left: 1rem;
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      a {
+        font-size: 0.75rem;
+        color: var(--gray);
+        font-weight: 500;
+        text-decoration: none;
+        &:hover {
+          color: var(--secondary);
+        }
+      }
+    }
+  }
+
+  .sidebar.left::before {
+    content: "The Junkyard";
+    display: block;
+    font-family: var(--headerFont);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+    letter-spacing: -0.02em;
+  }
+}
